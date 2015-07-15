@@ -6,11 +6,23 @@ from MuonHLT.Tools.paths_cff import *
 
 # Configuration parameters ##########
 
-pathToStudy = IsoMu20
-tagTriggerName = "HLT_IsoMu20_v"
-globalTag = "GR_H_V58A"
 
-fileNames = cms.untracked.vstring(# Z 741 RelVal
+#pathToStudy = Mu20
+#tagTriggerName = "HLT_Mu20_v"
+
+pathToStudy = Mu50
+tagTriggerName = "HLT_Mu50_v"
+
+#pathToStudy = IsoMu20
+#tagTriggerName = "HLT_IsoMu20_v"
+
+#pathToStudy = IsoMu17_eta2p1
+#tagTriggerName = "HLT_IsoMu17_eta2p1_v"
+
+#globalTag = "GR_H_V58A"
+globalTag = "74X_dataRun2_Prompt_v0"
+
+fileNames = cms.untracked.vstring(
                                   "/store/data/Run2015B/SingleMuon/RECO/PromptReco-v1/000/251/252/00000/04014492-9327-E511-B61E-02163E0138A8.root",
                                   "/store/data/Run2015B/SingleMuon/RECO/PromptReco-v1/000/251/252/00000/040DB4EF-9627-E511-BC70-02163E014437.root",
                                   "/store/data/Run2015B/SingleMuon/RECO/PromptReco-v1/000/251/252/00000/0822AC7E-9227-E511-8FCE-02163E014629.root",
@@ -97,8 +109,21 @@ for i in range(len(pathToStudy.PROBEDEN)):
                                    closeFileFast = cms.untracked.bool(False)
                                    )
 
+process.load("FWCore.MessageService.MessageLogger_cfi")
+process.MessageLogger.cerr.INFO.limit = 0
+process.MessageLogger.cout.threshold = cms.untracked.string('WARNING')
+process.MessageLogger.cerr.FwkSummary = cms.untracked.PSet(
+    reportEvery = cms.untracked.int32(1000),
+    limit = cms.untracked.int32(10000000)
+)
+process.MessageLogger.cerr.FwkReport = cms.untracked.PSet(
+    reportEvery = cms.untracked.int32(1000),
+    limit = cms.untracked.int32(10000000)
+)
+
 
 process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(500000))
+#process.maxEvents = cms.untracked.PSet(input = cms.untracked.int32(500))
 
 # Automatic addition of the customisation function from SLHCUpgradeSimulations.Configuration.postLS1Customs
 from SLHCUpgradeSimulations.Configuration.postLS1Customs import customisePostLS1 
